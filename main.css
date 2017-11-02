@@ -1,51 +1,66 @@
 html{
 	box-sizing: border-box;
+  background: url(img/fondo-body.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
+
 *, *:before, *:after{
 	box-sizing: inherit;
 }
+
+/*body{
+background-color: #F4F4F4;
+}*/
 header{
 	width: 100%;
 	height: 60px;
-	background-color: greenyellow;
+	background-color: #CACACA;
 	margin-bottom: 10px;
 }
 main{
-	width: 100%;
-	height: 180px;
-	margin-left: auto;
-	margin-right: auto;
+
+	width: 60%;
+	margin: 5% auto;
+	background-color: #C0CCD6;
+	border: solid 1px black;
+	padding: 50px 0px 31px 0px;
 
 }
+
 h2{
 	margin-top: 0px;
 }
 section{
-	float:left;
-	height: 100%;
-	padding:11px;
+    height: 100%;
+    padding: 9px 50px 9px 50px;
 }
 #descripcion{
-	width: 74%;
-	background-color: orangered;
+	padding: 50px 50px 20px 50px;
+	margin : 0px auto;
 }
 #resumen {
-	width: 24%;
-	background-color:yellow;
+	padding: 15px;
+	margin: 0px auto;
 }
+#enumeracion{
+	margin: 0px auto;
+	width: 50%;
 
+}
 .opcion{
 	border: solid 1px black;
 	width: 23%;
-	display: inline-block;
-	padding:5px;
+	padding:5px 14px;
 	text-align: center;
+	margin: 0px 3px;
 }
 .respuesta{
-	width: 48%;
+	width: 100%;
 	background-color: white;
 	height:40px;
-	float: left;
 	margin: 3px;
 	padding: 10px;
 }
@@ -55,15 +70,15 @@ a{
 	text-decoration: none;
 }
 a:hover{
-	background-color: blue;
+	background-color: black;
 	color: white;
 }
 /* The container */
 .container {
     display: block;
     position: relative;
-    padding-left: 45px;
-    margin-bottom: 12px;
+    padding-left: 55px;
+    margin-bottom: -1px;
     cursor: pointer;
     font-size: 22px;
     -webkit-user-select: none;
@@ -122,13 +137,39 @@ a:hover{
 }
 
 .bien{
-	background-color: yellow;
+	background-color: green;
 }
 .mal{
 	background-color: red;
 }
 .seleccionada{
-	font-size: 18px;
+	font-size: 19px;
 	font-weight: bold;
-	color: blue;
+	border: solid 1.5px black;
+}
+#evaluar{
+	display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    margin-left: 50px;
+
+}
+#solucion p{
+	background-color: white;
+	padding: 25px;
 }

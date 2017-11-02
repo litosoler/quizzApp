@@ -74,18 +74,18 @@ function renderRespuestas(descripcion, element){
 //handdle funcions
 //al iniciar la pagina
 $(function(){
-	renderResumen(preguntas, $('#resumen'));
-	inicar();
+	renderResumen(preguntas, $('#enumeracion'));
 	$('main').attr("hidden", true);
+	inicar();
 	desactivaEval();
 });
 //maneja el click a el boton iniciar
 function inicar(){
-	$('#iniciar').click(function(){
+//	$('#iniciar').click(function(){
 		$('main').attr("hidden", false);
 		renderDescripcion(preguntas, 1);
 		$("a[id = '1']").addClass('seleccionada');
-	});
+//	});
 }
 
 //maneja los click el indice de las preguntas
