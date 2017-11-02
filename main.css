@@ -27,6 +27,8 @@ main{
 	background-color: #C0CCD6;
 	border: solid 1px black;
 	padding: 50px 0px 31px 0px;
+    border-radius: 14px;
+
 
 }
 
@@ -34,7 +36,6 @@ h2{
 	margin-top: 0px;
 }
 section{
-    height: 100%;
     padding: 9px 50px 9px 50px;
 }
 #descripcion{
@@ -147,7 +148,7 @@ a:hover{
 	font-weight: bold;
 	border: solid 1.5px black;
 }
-#evaluar{
+#evaluar, #siguiente, #finalizar{
 	display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;
@@ -172,4 +173,28 @@ a:hover{
 #solucion p{
 	background-color: white;
 	padding: 25px;
+}
+
+.oculto{
+	visibility: hidden;
+}
+#introduccion{
+	width: 60%;
+    margin: -22% auto;
+    background-color: #C0CCD6;
+    border: solid 1px black;
+    height: 322px;
+}
+#iniciar{
+	padding: 22PX;
+    margin: 5% auto;
+    font-size: 52px;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid transparent;
+    border-radius: 24px;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+
 }

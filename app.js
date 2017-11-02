@@ -29,6 +29,14 @@ function  contabilisarRespuesta(state ,descripcion, respuesta){
 
 
 }
+function reiniciarIntentos(preguntas){
+	state.totalOk = 0;
+	state.totalFail = 0;
+	state.restantes = preguntas.length -1;
+	for (var i = 1; i <= preguntas.length; i++) {
+		preguntas[i].intento= false;
+	}
+}
 
 function marcarIntento(descripcion){
 	descripcion.intento = true;
@@ -74,22 +82,26 @@ function renderRespuestas(descripcion, element){
 //handdle funcions
 //al iniciar la pagina
 $(function(){
-	renderResumen(preguntas, $('#enumeracion'));
-	$('main').attr("hidden", true);
+	$('#prueba').addClass("oculto");
 	inicar();
-	desactivaEval();
 });
 //maneja el click a el boton iniciar
 function inicar(){
-//	$('#iniciar').click(function(){
-		$('main').attr("hidden", false);
+	$('#iniciar').click(function(){
+		$('#prueba').removeClass("oculto");
+		$('#introduccion').addClass('oculto');
+		$('#solucion').addClass('oculto');
+		renderResumen(preguntas, $('#enumeracion'));
 		renderDescripcion(preguntas, 1);
 		$("a[id = '1']").addClass('seleccionada');
-//	});
+		$('main button').html("Evaluar");
+		$('main button').attr("id", "evaluar");
+		desactivaEval();
+	});
 }
 
 //maneja los click el indice de las preguntas
-$("#resumen").on("click", "a", function(event){
+/*$("#resumen").on("click", "a", function(event){
 	var index = parseInt($(this).html());
 	renderDescripcion(preguntas, index);
 	desactivaEval();
@@ -99,12 +111,34 @@ $("#resumen").on("click", "a", function(event){
 		desacRadioButones();
 		$("input[value = " + preguntas[index].rptUsuario + "]").attr('checked', true);
 		$("a[id = '"+index+"']").removeClass('seleccionada');
-
 	}
-});
+});*/
+
+//maneja el evento del boton siguiente
+function siguiente(){
+	var index = parseInt($('.seleccionada').html());
+	index++;
+	quitarSolucion();
+	$('main button').html("Evaluar");
+	$('main button').attr("id", "evaluar");	
+	renderDescripcion(preguntas, index);
+	desactivaEval();
+	$("a").removeClass('seleccionada');
+	$("a[id = '"+ index +"']").addClass('seleccionada');
+	if (preguntas[index].intento){
+		desacRadioButones();
+		$("input[value = " + preguntas[index].rptUsuario + "]").attr('checked', true);
+		$("a[id = '"+index+"']").removeClass('seleccionada');
+	}
+}
 //muestra la solucion a la pregunta, se llama desde la funcion que maneja el click a el boton evaluar
 function mostrarSolucion(descripcion){
-	$("#solucion p").html("La respuesta correcta es: " + descripcion.correcta);
+	$("#solucion").html("<p>La respuesta correcta es: " + descripcion.correcta+"</p>");
+}
+
+//quita la solucion para preparar una nueva pregunta
+function quitarSolucion(){
+	$("#solucion").html("");
 }
 //marca el indice de las  preguntas, se llama desde la funcion que maneja el click a el boton evaluar
 function marcarResumen(indice, estado){
@@ -118,7 +152,7 @@ function marcarResumen(indice, estado){
 }
 
 //verifica las respuestas, se dispara cuando das click al boton evaluar
-$("#evaluar").click(function(){
+function evaluar(){
 	var preguntaIndice = parseInt($(".pregunta").attr("id"));
 	var descripcion = preguntas[preguntaIndice];
 	var respuesta = $(":checked").closest("input").attr("value");
@@ -126,9 +160,42 @@ $("#evaluar").click(function(){
 	mostrarSolucion(descripcion);
 	marcarResumen(preguntaIndice, estado);
 	marcarIntento(descripcion);
-	desactivaEval();
 	desacRadioButones();
 	guardarRespuesta(descripcion, respuesta);
+	$('#solucion').removeClass('oculto');
+	$('main button').html("Siguiente");
+	$('main button').attr("id", "siguiente");
+	if (preguntas.length - 1 == preguntaIndice){
+		$('main button').html("Finalizar");
+		$('main button').attr("id", "finalizar");
+	}
+}
+
+//finalizar prueba
+function finalizar(state, preguntas){
+	alert('Total Buenas: ' + state.totalOk +"\nTotal Malas: " + state.totalFail +
+		" \nNota: " +state.totalOk +"/"+(preguntas.length-1));
+	$('#prueba').addClass("oculto");
+	$('#introduccion').removeClass('oculto');
+	$('#solucion').addClass('oculto');
+	$('center button').attr("id", "iniciar");
+	$('center button').html("Iniciar prueba");
+	$('#enumeracion').html("");
+	$('#respuestas').html("");
+	$('#solucion').html("");
+	$('h2').html("");
+	reiniciarIntentos(preguntas);
+
+}
+$('main button').on('click', function(){
+	if ($(this).attr("id") == "evaluar"){
+		evaluar();
+	}else if ($(this).attr("id") == "siguiente" ) {
+		siguiente();
+	}else  if ($(this).attr("id") == 'finalizar') {
+		finalizar(state, preguntas);
+	}
+
 });
 
 function desacRadioButones(){
